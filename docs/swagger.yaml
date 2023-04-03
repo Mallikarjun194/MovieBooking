@@ -1,0 +1,337 @@
+basePath: /
+definitions:
+  models.Movie:
+    properties:
+      id:
+        type: string
+      language:
+        type: string
+      length:
+        type: integer
+      name:
+        type: string
+    required:
+    - language
+    - length
+    - name
+    type: object
+  models.Seat:
+    properties:
+      id:
+        type: string
+      number:
+        type: integer
+      theater_id:
+        type: string
+      type:
+        type: string
+    required:
+    - number
+    - theater_id
+    - type
+    type: object
+  models.SeatRequest:
+    properties:
+      number:
+        type: integer
+      type:
+        type: string
+    type: object
+  models.Show:
+    properties:
+      dateTime:
+        type: string
+      id:
+        type: string
+      movieID:
+        type: string
+      theaterID:
+        type: string
+    required:
+    - dateTime
+    - movieID
+    - theaterID
+    type: object
+  models.Theater:
+    properties:
+      address:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      seats:
+        items:
+          $ref: '#/definitions/models.Seat'
+        type: array
+    required:
+    - address
+    - name
+    type: object
+  models.TheaterRequest:
+    properties:
+      address:
+        type: string
+      name:
+        type: string
+      seat:
+        items:
+          $ref: '#/definitions/models.SeatRequest'
+        type: array
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server Petstore server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /Seats:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Seat'
+            type: array
+    post:
+      parameters:
+      - description: Seat JSON
+        in: body
+        name: Seat
+        required: true
+        schema:
+          $ref: '#/definitions/models.Seat'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Seat'
+  /Seats/{id}:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Seat'
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Seat'
+  /movies:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Movie'
+            type: array
+    post:
+      parameters:
+      - description: Movie JSON
+        in: body
+        name: Movie
+        required: true
+        schema:
+          $ref: '#/definitions/models.Movie'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Movie'
+  /movies/{id}:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Movie'
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Movie'
+    patch:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Movie'
+  /shows:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Show'
+            type: array
+    post:
+      parameters:
+      - description: Show JSON
+        in: body
+        name: Show
+        required: true
+        schema:
+          $ref: '#/definitions/models.Show'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Show'
+  /shows/{id}:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Show'
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Show'
+    patch:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Show JSON
+        in: body
+        name: Show
+        required: true
+        schema:
+          $ref: '#/definitions/models.Show'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Show'
+  /theaters:
+    get:
+      parameters:
+      - description: name
+        in: query
+        name: name
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Theater'
+            type: array
+    post:
+      parameters:
+      - description: Theater JSON
+        in: body
+        name: Theater
+        required: true
+        schema:
+          $ref: '#/definitions/models.TheaterRequest'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Theater'
+  /theaters/{id}:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Theater'
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Theater'
+    patch:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Theater JSON
+        in: body
+        name: Theater
+        required: true
+        schema:
+          $ref: '#/definitions/models.Theater'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Theater'
+swagger: "2.0"
